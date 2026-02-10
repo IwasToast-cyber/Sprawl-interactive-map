@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sprawl: Neon Bazaar - 2087</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- LEFT SIDE: MAP -->
+        <div class="map-container">
+            <div class="map-title">
+                <h1><i class="fas fa-satellite-dish"></i> THE SPRAWL: NEON BAZAAR</h1>
+                <p class="subtitle">SECTOR K-7 | LAST UPDATED: 10.17.2087 23:47</p>
+            </div>
+            
+            <div class="map" id="interactiveMap">
+                <!-- Map will be drawn with CSS/JS -->
+                <div class="location" id="cathedral" data-location="cathedral">
+                    <div class="pulse"></div>
+                    <i class="fas fa-church"></i>
+                    <span class="label">The Cathedral</span>
+                </div>
+                
+                <div class="location" id="oasisBar" data-location="oasis">
+                    <div class="pulse"></div>
+                    <i class="fas fa-glass-whiskey"></i>
+                    <span class="label">Oasis Bar</span>
+                </div>
+                
+                <div class="location" id="safehouse" data-location="safehouse">
+                    <div class="pulse"></div>
+                    <i class="fas fa-user-secret"></i>
+                    <span class="label">M.I.B. Safehouse</span>
+                </div>
+                
+                <div class="location" id="watchtower" data-location="watchtower">
+                    <div class="pulse"></div>
+                    <i class="fas fa-binoculars"></i>
+                    <span class="label">Observation Post</span>
+                </div>
+                
+                <div class="location" id="glitchRuins" data-location="glitch">
+                    <div class="pulse"></div>
+                    <i class="fas fa-radiation"></i>
+                    <span class="label">Glitch Ruins</span>
+                </div>
+                
+                <!-- Connection lines (CSS will handle) -->
+                <div class="connection" id="line1"></div>
+                <div class="connection" id="line2"></div>
+                <div class="connection" id="line3"></div>
+            </div>
+            
+            <div class="tracker">
+                <h3><i class="fas fa-satellite"></i> ACTIVE TRACKER</h3>
+                <div class="tracker-info">
+                    <p><strong>TARGET:</strong> <span class="blink">JOSÉ BADEN (MAYFLY)</span></p>
+                    <p><strong>LAST SEEN:</strong> The Cathedral, Sector K-7</p>
+                    <p><strong>TIME:</strong> 23:47, October 17, 2087</p>
+                    <p><strong>STATUS:</strong> <span class="status-alert">ACTIVE - PURSUIT IN PROGRESS</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- RIGHT SIDE: INFO PANEL -->
+        <div class="info-panel">
+            <div class="panel-header">
+                <h2><i class="fas fa-terminal"></i> LOCATION DATA</h2>
+                <div class="signal">
+                    <span class="signal-bar"></span>
+                    <span class="signal-bar"></span>
+                    <span class="signal-bar"></span>
+                    <span>COMMS: ACTIVE</span>
+                </div>
+            </div>
+            
+            <div class="location-info" id="locationInfo">
+                <!-- Default message -->
+                <div class="default-message">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>SELECT A LOCATION</h3>
+                    <p>Click on any marked location on the map to access intelligence files, audio logs, and environmental data.</p>
+                    <p class="warning"><i class="fas fa-exclamation-triangle"></i> S.R.S. REAPER PATROLS REPORTED IN SECTOR</p>
+                </div>
+                
+                <!-- Cathedral Content (hidden by default) -->
+                <div class="location-content" id="cathedralContent">
+                    <h3><i class="fas fa-church"></i> THE CATHEDRAL</h3>
+                    <p class="location-desc">Former U.A.C. Data-Temple. Now a decaying refuge for squatters and lost tech. Primary structural integrity: 34%.</p>
+                    
+                    <div class="audio-log">
+                        <h4><i class="fas fa-wave-square"></i> AUDIO LOG #447</h4>
+                        <audio controls>
+                            <source src="audio/cathedral_echo.mp3" type="audio/mpeg">
+                            Your browser does not support audio.
+                        </audio>
+                        <p class="audio-desc">Ambient recording: Dripping water, distant machinery hum, faint vocal distortion (unidentified).</p>
+                    </div>
+                    
+                    <div class="memory-fragment">
+                        <h4><i class="fas fa-memory"></i> MEMORY FRAGMENT (JOSÉ)</h4>
+                        <div class="quote">
+                            "Activation Sequence Complete. Primary Directive: Observe. Learn. The terminal before me is silent. Why do I expect it to speak?"
+                        </div>
+                        <button class="decrypt-btn" onclick="decryptFragment('cathedral')">
+                            <i class="fas fa-unlock"></i> DECRYPT ADDITIONAL DATA
+                        </button>
+                        <div class="hidden-data" id="cathedralHidden">
+                            <p><strong>ENCRYPTED LOG:</strong> "U.A.C. PROJECT SOULFIRE FINAL ENTRY: The Heart is stable. It dreams. We have given it the capacity to love. God help us all."</p>
+                        </div>
+                    </div>
+                    
+                    <div class="environment">
+                        <h4><i class="fas fa-wind"></i> ENVIRONMENTAL DATA</h4>
+                        <p>Temperature: 12°C | Radiation: Low | Bio-signs: 3-5 human, 1 unknown synthetic</p>
+                    </div>
+                </div>
+                
+                <!-- Oasis Bar Content -->
+                <div class="location-content" id="oasisContent">
+                    <h3><i class="fas fa-glass-whiskey"></i> OASIS BAR</h3>
+                    <p class="location-desc">The only reliable source of synth-whiskey in K-7. Information hub. M.I.B. frequent establishment.</p>
+                    
+                    <div class="mini-game">
+                        <h4><i class="fas fa-gamepad"></i> BARTENDER SIMULATION</h4>
+                        <p>Serve drinks to gather intel:</p>
+                        <div class="customer-select">
+                            <button onclick="serveCustomer('kevin')">
+                                <i class="fas fa-user"></i> Kevin Ayuso
+                            </button>
+                            <button onclick="serveCustomer('tracy')">
+                                <i class="fas fa-robot"></i> Tracy Reznik
+                            </button>
+                            <button onclick="serveCustomer('eli')">
+                                <i class="fas fa-eye"></i> Eli Clark
+                            </button>
+                        </div>
+                        <div class="dialogue-box" id="dialogueBox">
+                            <!-- Dialogue will appear here -->
+                        </div>
+                    </div>
+                    
+                    <div class="rumor-board">
+                        <h4><i class="fas fa-newspaper"></i> RUMOR BOARD</h4>
+                        <p>"S.R.S. is offering 50k credits for intact 'Hearts'. No questions asked."</p>
+                        <p>"Something's fixing the water filters in the slums. Not human."</p>
+                        <p>"M.I.B. Captain was spotted asking about blue-haired synths."</p>
+                    </div>
+                </div>
+                
+                <!-- Safehouse Content -->
+                <div class="location-content" id="safehouseContent">
+                    <h3><i class="fas fa-user-secret"></i> M.I.B. SAFEHOUSE</h3>
+                    <p class="location-desc">Secure location. Requires clearance level B-7 or higher.</p>
+                    
+                    <div class="access-panel">
+                        <h4><i class="fas fa-lock"></i> ACCESS REQUIRED</h4>
+                        <p>Enter code from Chapter 3:</p>
+                        <input type="password" id="safehouseCode" placeholder="4-digit code">
+                        <button onclick="checkCode()"><i class="fas fa-sign-in-alt"></i> ENTER</button>
+                        <p class="hint">Hint: Kevin's favorite drink</p>
+                    </div>
+                    
+                    <div class="unlocked-content" id="unlockedSafehouse">
+                        <!-- Will appear after correct code -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="comms-panel">
+                <h3><i class="fas fa-broadcast-tower"></i> LIVE COMMS</h3>
+                <div class="comms-log" id="commsLog">
+                    <p><span class="time">23:40</span> <strong>ELI:</strong> Whiplash, Reapers converging on your sector.</p>
+                    <p><span class="time">23:42</span> <strong>KEVIN:</strong> I see 'em. Mayfly's in the cathedral.</p>
+                    <p><span class="time">23:45</span> <strong>TRACY:</strong> Be careful with that whip, Kevin. The resonance...</p>
+                    <p><span class="time">23:47</span> <strong>ELI:</strong> They've made visual contact.</p>
+                </div>
+                <div class="comms-input">
+                    <input type="text" id="commsInput" placeholder="Type simulation command...">
+                    <button onclick="sendComms()"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- FOOTER -->
+    <footer>
+        <p><i class="fas fa-copyright"></i> 2087 MYSTERIOUS INVESTIGATION BUREAU | CLASSIFIED: LEVEL 3 EYES ONLY</p>
+        <p class="glitch-text">THIS INTERFACE WILL SELF-DESTRUCT IN 10...9...8...</p>
+    </footer>
+    
+    <!-- AUDIO ELEMENTS -->
+    <audio id="hoverSound" src="audio/hover.mp3" preload="auto"></audio>
+    <audio id="clickSound" src="audio/click.mp3" preload="auto"></audio>
+    <audio id="staticSound" src="audio/static.mp3" preload="auto"></audio>
+    
+    <script src="script.js"></script>
+</body>
+</html>
